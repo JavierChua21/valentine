@@ -1,148 +1,174 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>For You ❤️</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For You ❤️</title>
 
-  <style>
-    body {
-      margin: 0;
-      font-family: "Segoe UI", Arial, sans-serif;
-      background: linear-gradient(to bottom, #ff9a9e, #fad0c4);
-      min-height: 100vh;
-      overflow: hidden;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      color: white;
-    }
+<style>
 
-    .card {
-      width: min(520px, 92vw);
-      padding: 28px 22px;
-      border-radius: 24px;
-      background: rgba(255, 255, 255, 0.18);
-      backdrop-filter: blur(10px);
-      box-shadow: 0 18px 45px rgba(0,0,0,0.25);
-    }
+body {
+    margin: 0;
+    font-family: "Segoe UI", Arial;
+    background: linear-gradient(to bottom, #ff9a9e, #fad0c4);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    color: white;
+}
 
-    .photo {
-      width: min(320px, 70vw);
-      border-radius: 18px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.25);
-      display: block;
-      margin: 0 auto 18px;
-    }
+/* card container */
+.card {
+    width: 360px;
+    padding: 30px 20px 40px 20px;
+    border-radius: 24px;
+    background: rgba(255,255,255,0.18);
+    backdrop-filter: blur(12px);
+    box-shadow: 0 20px 50px rgba(0,0,0,0.3);
 
-    h1 {
-      margin: 10px 0 18px;
-      font-size: clamp(26px, 4vw, 40px);
-      line-height: 1.15;
-    }
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 
-    .btnRow {
-      position: relative;
-      height: 90px;
-      margin-top: 10px;
-    }
+/* image at TOP */
+.photo {
+    width: 240px;
+    height: auto;
+    border-radius: 18px;
+    margin-bottom: 20px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+}
 
-    button {
-      font-size: 22px;
-      padding: 12px 26px;
-      border: none;
-      border-radius: 14px;
-      cursor: pointer;
-      transition: transform 0.2s ease, font-size 0.2s ease;
-      user-select: none;
-    }
+/* text BELOW image */
+h1 {
+    font-size: 28px;
+    margin-bottom: 25px;
+    text-align: center;
+}
 
-    #yes {
-      background: #ff4d6d;
-      color: white;
-      position: absolute;
-      left: 35%;
-      top: 10px;
-    }
+/* button container */
+.buttonArea {
+    position: relative;
+    width: 100%;
+    height: 80px;
+}
 
-    #no {
-      background: #666;
-      color: white;
-      position: absolute;
-      left: 60%;
-      top: 10px;
-    }
+/* buttons */
+button {
+    font-size: 22px;
+    padding: 12px 26px;
+    border-radius: 12px;
+    border: none;
+    cursor: pointer;
+    position: absolute;
+}
 
-    .heart {
-      position: absolute;
-      left: 0;
-      top: 0;
-      pointer-events: none;
-      animation: floatUp 5s linear forwards;
-      will-change: transform, opacity;
-    }
+/* YES button */
+#yes {
+    background: #ff4d6d;
+    color: white;
+    left: 60px;
+}
 
-    @keyframes floatUp {
-      from { transform: translate(var(--x), 110vh); opacity: 1; }
-      to   { transform: translate(var(--x), -15vh); opacity: 0; }
+/* NO button */
+#no {
+    background: #666;
+    color: white;
+    left: 200px;
+}
+
+/* hearts animation */
+.heart {
+    position: absolute;
+    animation: floatUp 5s linear forwards;
+}
+
+@keyframes floatUp {
+    from {
+        transform: translateY(100vh);
+        opacity: 1;
     }
-  </style>
+    to {
+        transform: translateY(-10vh);
+        opacity: 0;
+    }
+}
+
+</style>
 </head>
 
 <body>
-  <div class="card" id="page">
-    <img class="photo" src="img1.jpeg" alt="photo">
-    <h1>Will you be my Valentine? ❤️</h1>
 
-    <div class="btnRow">
-      <button id="yes" onclick="showYes()">Yes ❤️</button>
-      <button id="no" onmouseover="moveNo()">No</button>
-    </div>
-  </div>
+<div class="card" id="card">
 
-  <script>
-    const rng = (min, max) => Math.random() * (max - min) + min;
-    let yesSize = 22;
+<img src="img1.jpg" class="photo">
 
-    function moveNo() {
-      const no = document.getElementById("no");
-      const row = no.parentElement;
+<h1>Will you be my Valentine? ❤️</h1>
 
-      const maxX = row.clientWidth - no.offsetWidth;
-      const maxY = row.clientHeight - no.offsetHeight;
+<div class="buttonArea">
+<button id="yes" onclick="yesPage()">Yes ❤️</button>
+<button id="no" onmouseover="moveNo()">No</button>
+</div>
 
-      no.style.left = Math.max(0, rng(0, maxX)) + "px";
-      no.style.top  = Math.max(0, rng(0, maxY)) + "px";
+</div>
 
-      // make YES bigger each time
-      yesSize += 2;
-      const yes = document.getElementById("yes");
-      yes.style.fontSize = yesSize + "px";
-      yes.style.transform = "scale(1.03)";
-      setTimeout(() => yes.style.transform = "scale(1)", 120);
-    }
+<script>
 
-    function showYes() {
-      document.getElementById("page").innerHTML = `
-        <img class="photo" src="img2.jpeg" alt="photo">
-        <h1 style="font-size: clamp(30px, 4.6vw, 52px);">
-          YAYYYYY!! ❤️<br>
-          I love you beli much Bon Bon!
-        </h1>
-      `;
-    }
+let yesSize = 22;
 
-    // hearts
-    setInterval(() => {
-      const h = document.createElement("div");
-      h.className = "heart";
-      h.textContent = "❤️";
-      h.style.setProperty("--x", Math.round(rng(0, window.innerWidth)) + "px");
-      h.style.fontSize = Math.round(rng(18, 40)) + "px";
-      document.body.appendChild(h);
-      setTimeout(() => h.remove(), 5200);
-    }, 250);
-  </script>
+/* NO runs away */
+function moveNo()
+{
+    let no = document.getElementById("no");
+
+    let x = Math.random() * 250;
+    let y = Math.random() * 50;
+
+    no.style.left = x + "px";
+    no.style.top = y + "px";
+
+    yesSize += 2;
+    document.getElementById("yes").style.fontSize = yesSize + "px";
+}
+
+/* YES page */
+function yesPage()
+{
+    document.getElementById("card").innerHTML = `
+    
+    <img src="img2.jpg" class="photo">
+    
+    <h1 style="font-size:32px;">
+    YAYYYYY!! ❤️<br>
+    I love you beli much Bon Bon!
+    </h1>
+    
+    `;
+}
+
+/* floating hearts */
+setInterval(function(){
+
+    let heart = document.createElement("div");
+
+    heart.innerHTML = "❤️";
+    heart.className = "heart";
+
+    heart.style.left = Math.random() * window.innerWidth + "px";
+    heart.style.fontSize = (Math.random() * 20 + 20) + "px";
+
+    document.body.appendChild(heart);
+
+    setTimeout(function(){
+        heart.remove();
+    },5000);
+
+},300);
+
+</script>
+
 </body>
 </html>
