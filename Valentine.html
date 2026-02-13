@@ -120,19 +120,36 @@ button {
 let yesSize = 22;
 
 /* NO runs away */
+let yesSize = 22;
+let noSize = 22;   // track NO button size
+
 function moveNo()
 {
     let no = document.getElementById("no");
 
+    // random position
     let x = Math.random() * 250;
     let y = Math.random() * 50;
 
     no.style.left = x + "px";
     no.style.top = y + "px";
 
+    // YES gets bigger
     yesSize += 2;
     document.getElementById("yes").style.fontSize = yesSize + "px";
+
+    // NO gets smaller
+    noSize -= 2;
+
+    // minimum size limit so it doesn't disappear completely
+    if(noSize < 8)
+        noSize = 8;
+
+    no.style.fontSize = noSize + "px";
+    no.style.padding = (noSize/2) + "px " + (noSize) + "px";
 }
+
+</script>
 
 /* YES page */
 function yesPage()
